@@ -134,10 +134,10 @@ class program:
         if not self.gameover:
             if not self.pause:
                 self.pause = True
-                self.pga.config(text='p: Continue Game.')
+                self.pga.config(text='p: Continue Game')
             else:
                 self.pause = False
-                self.pga.config(text='p: Pause Game.')
+                self.pga.config(text='p: Pause Game')
                 self.nextturn()
 
     def move(self):
