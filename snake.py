@@ -1,40 +1,40 @@
-from tkinter import *
-import random
-import time
+from tkinter import * #for "graphics"
+import random #for randomly placed food
+import time # only for game-over-flashlight
 
 class field:
     def __init__(self):
         self.height = 40
         self.width = 40
-        self.cellsize= 23
-        self.array = []
-        for i in range(self.height):
+        self.cellsize= 23 # only vor visuals
+        self.array = [] # initialize array
+        for i in range(self.height): # create array 40*40
             self.array.append([])
             for j in range(self.width):
                 self.array[i].append(0)
 
 class snake:
     def __init__(self):
-        self.size = 2
-        self.shape = []
+        self.size = 2 #will change after every eaten food
+        self.shape = [] # init shape array. Sublists of Y and X values will be added/deleted after every move
 
 class program:
     def __init__(self):
-        self.field = field()
-        self.gui = Tk()
+        self.field = field() # create field object
+        self.gui = Tk() # init TK
         self.gui.title("Snake Means Python")
-        self.gui.config(bg='#888888')
+        self.gui.config(bg='#888888') # Set colors: black: free cell, blue: snake, green: food, red/white: gameover animation
         self.c_free = '#000000'
         self.c_snake = '#0000FF'
         self.c_food = '#00FF00'
         self.c_red = '#FF0000'
         self.c_white = '#FFFFFF'
         self.directions = ['right']
-        self.direction = self.directions[0]
+        self.direction = self.directions[0] # set starting direction
         self.eaten = False
         self.pause = False
         self.gameover = False
-        self.gui.bind('<Left>', self.left)
+        self.gui.bind('<Left>', self.left)  # Keys: up, down, left, right
         self.gui.bind('<Right>', self.right)
         self.gui.bind('<Up>', self.up)
         self.gui.bind('<Down>', self.down)
