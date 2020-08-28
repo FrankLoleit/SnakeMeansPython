@@ -6,7 +6,7 @@ class field:
     def __init__(self):
         self.height = 40
         self.width = 40
-        self.cellsize= 15
+        self.cellsize= 22
         self.array = []
         for i in range(self.height):
             self.array.append([])
@@ -23,7 +23,7 @@ class program:
         self.field = field()
         self.gui = Tk()
         self.gui.title("Snake Means Python")
-        self.gui.config(bg='#000000')
+        self.gui.config(bg='#555555')
         self.c_free = '#000000'
         self.c_snake = '#0000FF'
         self.c_food = '#00FF00'
