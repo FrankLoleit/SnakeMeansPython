@@ -1,6 +1,6 @@
 from tkinter import *  # for the "graphics"
 import random  # placing food in random positions
-import time  # needed for gameocer animation
+import time  # needed for gameover animation
 
 
 class field: # play field area
@@ -13,7 +13,6 @@ class field: # play field area
             self.array.append([])
             for j in range(self.width):
                 self.array[i].append(0)
-
 
 class snake:
     def __init__(self):
@@ -36,6 +35,7 @@ class program:
         self.direction = self.directions[0] # set starting direction
         self.eaten = False # True after every food catch for 1 round
         self.pause = False
+        self.win = False
         self.gameover = False # True after collision
         self.gui.bind('<Left>', self.left) # controls
         self.gui.bind('<Right>', self.right)
@@ -85,27 +85,35 @@ class program:
             for j in range(self.field.width):
                 if not self.field.array[i][j]: # if there is no snake on this cell put in in the freelist list
                     self.freespace.append([i, j])
-        self.food = random.choice(self.freespace) # chooses a random x/y-set from the freespace list
-        self.field.array[self.food[0]][self.food[1]] = 2 #places 2 for food on the array
-        exec("self.cell_{}.config(bg='{}')".format(str(self.food[0]) + '_' + str(self.food[1]), self.c_food)) # sets the food cell to green
+        try:
+            self.food = random.choice(self.freespace) # chooses a random x/y-set from the freespace list
+            self.field.array[self.food[0]][self.food[1]] = 2 #places 2 for food on the array
+            exec("self.cell_{}.config(bg='{}')".format(str(self.food[0]) + '_' + str(self.food[1]), self.c_food)) # sets the food cell to green
+        except:
+            print('You Win')
+            self.gameover = True
+            self.win = True
 
     def endgame(self): # makes the bitten part of the snake flash in white and red
-        for i in range(20):
-            if (i + 2) % 2 == 0: # oscilates 20 times from white to red
-                exec("self.cell_{}.config(bg='{}')".format(str(self.snake.head[0]) + '_' + str(self.snake.head[1]),
-                                                           self.c_white))
-            else:
-                exec("self.cell_{}.config(bg='{}')".format(str(self.snake.head[0]) + '_' + str(self.snake.head[1]),
-                                                           self.c_red))
-            self.gui.update_idletasks() # execute color change
-            time.sleep(1 / 16) # wait a litte before setting the next color
-            self.pga.config(text='GAME OVER') #indicates GAME OVER to the player
-            if self.points > self.highscore: # checks if there is a new highscore
-                self.highscore = self.points #if current score is higher than highscore from the highscore file set new hs
-                self.highfile = open('highscore.txt', 'w+') #open highscorefile in write mode
-                self.highfile.write(str(self.highscore)) # overwrite hs with new hs
-                self.highfile = open('highscore.txt', 'r') #open file in readmode
-                self.highs.config(text=self.highscore) # display new hs on screen
+        if not self.win:
+            for i in range(20):
+                if (i + 2) % 2 == 0: # oscilates 20 times from white to red
+                    exec("self.cell_{}.config(bg='{}')".format(str(self.snake.head[0]) + '_' + str(self.snake.head[1]),
+                                                               self.c_white))
+                else:
+                    exec("self.cell_{}.config(bg='{}')".format(str(self.snake.head[0]) + '_' + str(self.snake.head[1]),
+                                                               self.c_red))
+                self.gui.update_idletasks() # execute color change
+                time.sleep(1 / 16) # wait a litte before setting the next color
+                self.pga.config(text='GAME OVER') #indicates GAME OVER to the player
+        else:
+            self.pga.config(text='*** You win!!! ***')
+        if self.points > self.highscore: # checks if there is a new highscore
+            self.highscore = self.points #if current score is higher than highscore from the highscore file set new hs
+            self.highfile = open('highscore.txt', 'w+') #open highscorefile in write mode
+            self.highfile.write(str(self.highscore)) # overwrite hs with new hs
+            self.highfile = open('highscore.txt', 'r') #open file in readmode
+            self.highs.config(text=self.highscore) # display new hs on screen
 
     def left(self, event):
         if not self.direction == 'left': # if pressed directions is not currently active
