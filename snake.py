@@ -5,8 +5,8 @@ import time  # needed for gameocer animation
 
 class field: # play field area
     def __init__(self):
-        self.height = 20
-        self.width = 20
+        self.height = 30
+        self.width = 30
         self.cellsize = 22 # for visuals
         self.array = [] # init array
         for i in range(self.height): # generate array
