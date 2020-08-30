@@ -1,40 +1,40 @@
-from tkinter import * #for "graphics"
-import random #for randomly placed food
-import time # only for game-over-flashlight
+from tkinter import *
+import random
+import time
 
 class field:
     def __init__(self):
-        self.height = 20
-        self.width = 20
-        self.cellsize= 23 # only vor visuals
-        self.array = [] # initialize array
-        for i in range(self.height): # create array 40*40
+        self.height = 40
+        self.width = 40
+        self.cellsize= 15
+        self.array = []
+        for i in range(self.height):
             self.array.append([])
             for j in range(self.width):
                 self.array[i].append(0)
 
 class snake:
     def __init__(self):
-        self.size = 2 #will change after every eaten food
-        self.shape = [] # init shape array. Sublists of Y and X values will be added/deleted after every move
+        self.size = 2
+        self.shape = []
 
 class program:
     def __init__(self):
-        self.field = field() # create field object
-        self.gui = Tk() # init TK
+        self.field = field()
+        self.gui = Tk()
         self.gui.title("Snake Means Python")
-        self.gui.config(bg='#888888') # Set colors: black: free cell, blue: snake, green: food, red/white: gameover animation
+        self.gui.config(bg='#000000')
         self.c_free = '#000000'
         self.c_snake = '#0000FF'
         self.c_food = '#00FF00'
         self.c_red = '#FF0000'
         self.c_white = '#FFFFFF'
         self.directions = ['right']
-        self.direction = self.directions[0] # set starting direction
+        self.direction = self.directions[0]
         self.eaten = False
         self.pause = False
         self.gameover = False
-        self.gui.bind('<Left>', self.left)  # Keys: up, down, left, right
+        self.gui.bind('<Left>', self.left)
         self.gui.bind('<Right>', self.right)
         self.gui.bind('<Up>', self.up)
         self.gui.bind('<Down>', self.down)
@@ -58,6 +58,7 @@ class program:
         self.setfood()
         self.nextturn()
 
+    
     def quitgame(self, event):
         self.gui.quit()
 
@@ -133,10 +134,10 @@ class program:
         if not self.gameover:
             if not self.pause:
                 self.pause = True
-                self.pga.config(text='p: Continue Game')
+                self.pga.config(text='p: Continue Game.')
             else:
                 self.pause = False
-                self.pga.config(text='p: Pause Game')
+                self.pga.config(text='p: Pause Game.')
                 self.nextturn()
 
     def move(self):
@@ -192,39 +193,39 @@ class program:
         self.gameboard = Frame(self.gui, relief = 'sunken', bd=1)
         self.gameboard.grid(row = 0, column = self.field.width, rowspan = self.field.height, sticky = N)
 
-        self.pointstitle = Label(self.gameboard, width = 20, bg='#000000', text = 'Points:', font=("Arial", 25), anchor = W,
+        self.pointstitle = Label(self.gameboard, width = 20, bg='#000000', text = 'Points:', font=("Arial", 20), anchor = W, 
         relief = 'groove', fg='#FFFFFF')
         self.pointstitle.grid(row = 0, column = 0)
 
-        self.pointscounter = Label(self.gameboard, width = 20, bg='#000000', text=self.points, font=("Arial", 25), anchor=W,
+        self.pointscounter = Label(self.gameboard, width = 20, bg='#000000', text=self.points, font=("Arial", 20), anchor=W,
         relief ='groove',fg='#FFFFFF')
         self.pointscounter.grid(row = 1, column = 0, sticky = W)
 
-        self.null = Label(self.gameboard, width = 20, bg='#000000', text='', font=("Arial", 25), anchor=W,
+        self.null = Label(self.gameboard, width = 20, bg='#000000', text='', font=("Arial", 20), anchor=W,
         relief ='groove',fg='#FFFFFF')
         self.null.grid(row = 2, column = 0, sticky = W)
 
-        self.hightitle = Label(self.gameboard, width = 20, bg='#000000', text = 'Highscore:', font=("Arial", 25), anchor = W,
+        self.hightitle = Label(self.gameboard, width = 20, bg='#000000', text = 'Highscore:', font=("Arial", 20), anchor = W, 
         relief = 'groove', fg='#FFFFFF')
         self.hightitle.grid(row = 3, column = 0)
 
-        self.highs = Label(self.gameboard, width = 20, bg='#000000', text=self.highscore, font=("Arial", 25), anchor=W,
+        self.highs = Label(self.gameboard, width = 20, bg='#000000', text=self.highscore, font=("Arial", 20), anchor=W,
         relief ='groove',fg='#FFFFFF')
         self.highs.grid(row = 4, column = 0, sticky = W)
 
-        self.null = Label(self.gameboard, width = 20, bg='#000000', text='', font=("Arial", 25), anchor=W,
+        self.null = Label(self.gameboard, width = 20, bg='#000000', text='', font=("Arial", 20), anchor=W,
         relief ='groove',fg='#FFFFFF')
         self.null.grid(row = 5, column = 0, sticky = W)
 
-        self.pga = Label(self.gameboard, width = 20, bg='#000000', text='p: Pause Game', font=("Arial", 25), anchor=W,
+        self.pga = Label(self.gameboard, width = 20, bg='#000000', text='p: Pause Game', font=("Arial", 20), anchor=W,
         relief ='groove',fg='#FFFFFF')
         self.pga.grid(row = 6, column = 0, sticky = W)
 
-        self.ng = Label(self.gameboard, width = 20, bg='#000000', text='n: New Game', font=("Arial", 25), anchor=W,
+        self.ng = Label(self.gameboard, width = 20, bg='#000000', text='n: New Game', font=("Arial", 20), anchor=W,
         relief ='groove',fg='#FFFFFF')
         self.ng.grid(row = 7, column = 0, sticky = W)
 
-        self.qg = Label(self.gameboard, width = 20, bg='#000000', text='q: Quit Game', font=("Arial", 25), anchor=W,
+        self.qg = Label(self.gameboard, width = 20, bg='#000000', text='q: Quit Game', font=("Arial", 20), anchor=W,
         relief ='groove',fg='#FFFFFF')
         self.qg.grid(row = 8, column = 0, sticky = W)
 
