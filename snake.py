@@ -4,8 +4,8 @@ import time # only for game-over-flashlight
 
 class field:
     def __init__(self):
-        self.height = 40
-        self.width = 40
+        self.height = 20
+        self.width = 20
         self.cellsize= 23 # only vor visuals
         self.array = [] # initialize array
         for i in range(self.height): # create array 40*40
