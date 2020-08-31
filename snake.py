@@ -65,6 +65,7 @@ class program:
         self.gui.quit() # exits program when pressing 'q'
 
     def newgame(self, event):
+        self.win = False
         self.pga.config(text='p: Pause Game') # now you can pause the game again
         self.points = 0
         self.pointscounter.config(text="0") # sets points to 0
